@@ -1,0 +1,39 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# dependencies
+node_modules
+.pnp
+.pnp.js
+yarn.lock
+package-lock.json
+
+# testing
+coverage
+
+# production
+.next
+.swc
+_static
+out
+dist
+build
+
+# environment variables
+# .env
+# .env.dev
+# .env.stage
+# .env.prod
+
+
+# misc
+.DS_Store
+.vercel
+.netlify
+.vscode
+tsconfig.tsbuildinfo
+.ncurc.js
