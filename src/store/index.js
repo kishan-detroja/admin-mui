@@ -3,7 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import usersReducer from 'src/pages/users/slice/usersSlice';
 
 import uiReducer from './slices/uiSlice';
-import authReducer from './slices/authSlice';
+import authReducer from '../pages/auth/slice/authSlice';
 
 export const store = configureStore({
   reducer: {

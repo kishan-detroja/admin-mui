@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+import { useRouter } from 'src/routes/hooks';
+
 import { CONFIG } from 'src/global-config';
 
 import { SplashScreen } from 'src/components/loading-screen';
@@ -11,6 +13,7 @@ import { useAuthContext } from 'src/auth/hooks';
 export function GuestGuard({ children }) {
   const { loading, authenticated } = useAuthContext();
 
+  const router = useRouter();
   const [isChecking, setIsChecking] = useState(true);
 
   const redirectUrl = CONFIG.auth.redirectPath;
@@ -24,7 +27,8 @@ export function GuestGuard({ children }) {
       // Redirect authenticated users to the returnTo path
       // Using `window.location.href` instead of `router.replace` to avoid unnecessary re-rendering
       // that might be caused by the AuthGuard component
-      window.location.href = redirectUrl;
+
+      router.replace(redirectUrl);
       return;
     }
 

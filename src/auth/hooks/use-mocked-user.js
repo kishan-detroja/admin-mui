@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import { selectCurrentUser } from 'src/store/slices/authSlice';
+import { selectCurrentUser } from 'src/pages/auth/slice/authSlice';
 
 // ----------------------------------------------------------------------
 

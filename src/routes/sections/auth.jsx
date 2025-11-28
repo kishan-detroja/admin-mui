@@ -13,8 +13,8 @@ import { GuestGuard } from 'src/auth/guard';
  * Jwt
  *************************************** */
 const Jwt = {
-  SignInPage: lazy(() => import('src/pages/auth/jwt/sign-in')),
-  SignUpPage: lazy(() => import('src/pages/auth/jwt/sign-up')),
+  SignInPage: lazy(() => import('src/pages/auth/component/signIn/sign-in')),
+  SignUpPage: lazy(() => import('src/pages/auth/component/signUp/sign-up')),
 };
 
 const authJwt = {

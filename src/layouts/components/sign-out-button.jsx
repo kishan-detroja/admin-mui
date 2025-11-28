@@ -2,7 +2,10 @@ import { useCallback } from 'react';
 
 import Button from '@mui/material/Button';
 
+import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
+
+import { useSnackbar } from 'src/hooks';
 
 import { useAuthContext } from 'src/auth/hooks';
 import { signOut } from 'src/auth/context/jwt/action';
@@ -11,6 +14,7 @@ import { signOut } from 'src/auth/context/jwt/action';
 
 export function SignOutButton({ onClose, sx, ...other }) {
   const router = useRouter();
+  const { showSuccess } = useSnackbar();
 
   const { checkUserSession } = useAuthContext();
 
@@ -18,9 +22,9 @@ export function SignOutButton({ onClose, sx, ...other }) {
     try {
       await signOut();
       await checkUserSession?.();
-
+      showSuccess('Successfully signed out!');
       onClose?.();
-      router.refresh();
+      router.replace(paths.auth.jwt.signIn);
     } catch (error) {
       console.error(error);
     }

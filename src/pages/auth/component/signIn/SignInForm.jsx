@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useBoolean } from 'minimal-shared/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -14,6 +13,7 @@ import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
+import { useSnackbar } from 'src/hooks';
 import { SignInSchema } from 'src/schema/validation';
 
 import { Iconify } from 'src/components/iconify';
@@ -26,14 +26,14 @@ import { signInWithPassword } from 'src/auth/context/jwt';
 
 // ----------------------------------------------------------------------
 
-export function JwtSignInView() {
+export function SignInForm() {
   const router = useRouter();
 
   const showPassword = useBoolean();
 
   const { checkUserSession } = useAuthContext();
 
-  const [errorMessage, setErrorMessage] = useState(null);
+  const { showSuccess, showError } = useSnackbar();
 
   const defaultValues = {
     email: 'superadmin@gmail.com',
@@ -53,13 +53,14 @@ export function JwtSignInView() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       await signInWithPassword({ email: data.email, password: data.password });
+      showSuccess('Successfully signed in!');
       await checkUserSession?.();
 
-      router.refresh();
+      // router.refresh();
     } catch (error) {
       console.error(error);
       const feedbackMessage = getErrorMessage(error);
-      setErrorMessage(feedbackMessage);
+      showError(feedbackMessage || 'Failed to sign in. Please try again.');
     }
   });
 
@@ -134,12 +135,6 @@ export function JwtSignInView() {
         {' with password '}
         <strong>{defaultValues.password}</strong>
       </Alert>
-
-      {!!errorMessage && (
-        <Alert severity="error" sx={{ mb: 3 }}>
-          {errorMessage}
-        </Alert>
-      )}
 
       <Form methods={methods} onSubmit={onSubmit}>
         {renderForm()}

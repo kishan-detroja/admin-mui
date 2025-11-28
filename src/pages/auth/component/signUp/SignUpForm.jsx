@@ -1,12 +1,9 @@
-import * as z from 'zod';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useBoolean } from 'minimal-shared/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -15,8 +12,11 @@ import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
+import { useSnackbar } from 'src/hooks';
+import { SignUpSchema } from 'src/schema/validation';
+
 import { Iconify } from 'src/components/iconify';
-import { Form, Field, schemaUtils } from 'src/components/hook-form';
+import { Form, Field } from 'src/components/hook-form';
 
 import { signUp } from 'src/auth/context/jwt';
 import { useAuthContext } from 'src/auth/hooks';
@@ -26,26 +26,14 @@ import { SignUpTerms } from 'src/auth/components/sign-up-terms';
 
 // ----------------------------------------------------------------------
 
-export const SignUpSchema = z.object({
-  firstName: z.string().min(1, { message: 'First name is required!' }),
-  lastName: z.string().min(1, { message: 'Last name is required!' }),
-  email: schemaUtils.email(),
-  password: z
-    .string()
-    .min(1, { message: 'Password is required!' })
-    .min(6, { message: 'Password must be at least 6 characters!' }),
-});
-
-// ----------------------------------------------------------------------
-
-export function JwtSignUpView() {
+export function SignUpForm() {
   const router = useRouter();
 
   const showPassword = useBoolean();
 
   const { checkUserSession } = useAuthContext();
 
-  const [errorMessage, setErrorMessage] = useState(null);
+  const { showSuccess, showError } = useSnackbar();
 
   const defaultValues = {
     firstName: 'Hello',
@@ -74,11 +62,12 @@ export function JwtSignUpView() {
       });
       await checkUserSession?.();
 
+      showSuccess('Account created successfully!');
       router.refresh();
     } catch (error) {
       console.error(error);
       const feedbackMessage = getErrorMessage(error);
-      setErrorMessage(feedbackMessage);
+      showError(feedbackMessage || 'Failed to create account. Please try again.');
     }
   });
 
@@ -148,12 +137,6 @@ export function JwtSignUpView() {
         }
         sx={{ textAlign: { xs: 'center', md: 'left' } }}
       />
-
-      {!!errorMessage && (
-        <Alert severity="error" sx={{ mb: 3 }}>
-          {errorMessage}
-        </Alert>
-      )}
 
       <Form methods={methods} onSubmit={onSubmit}>
         {renderForm()}
