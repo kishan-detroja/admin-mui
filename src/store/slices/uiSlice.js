@@ -13,6 +13,9 @@ const initialState = {
     title: '',
     message: '',
     onConfirm: null,
+    confirmText: 'Confirm',
+    cancelText: 'Cancel',
+    confirmColor: 'error',
   },
 };
 
@@ -42,6 +45,9 @@ const uiSlice = createSlice({
         title: action.payload.title,
         message: action.payload.message,
         onConfirm: action.payload.onConfirm,
+        confirmText: action.payload.confirmText || 'Confirm',
+        cancelText: action.payload.cancelText || 'Cancel',
+        confirmColor: action.payload.confirmColor || 'error',
       };
     },
     hideConfirmDialog: (state) => {

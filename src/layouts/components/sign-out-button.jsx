@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
-import { useSnackbar } from 'src/hooks';
+import { useSnackbar, useConfirmDialog } from 'src/hooks';
 
 import { useAuthContext } from 'src/auth/hooks';
 import { signOut } from 'src/auth/context/jwt/action';
@@ -15,6 +15,7 @@ import { signOut } from 'src/auth/context/jwt/action';
 export function SignOutButton({ onClose, sx, ...other }) {
   const router = useRouter();
   const { showSuccess } = useSnackbar();
+  const { confirm } = useConfirmDialog();
 
   const { checkUserSession } = useAuthContext();
 
@@ -28,7 +29,18 @@ export function SignOutButton({ onClose, sx, ...other }) {
     } catch (error) {
       console.error(error);
     }
-  }, [checkUserSession, onClose, router]);
+  }, [checkUserSession, onClose, router, showSuccess]);
+
+  const handleClick = () => {
+    confirm({
+      title: 'Confirm Logout',
+      message: 'Are you sure you want to logout?',
+      confirmText: 'Logout',
+      cancelText: 'Cancel',
+      confirmColor: 'error',
+      onConfirm: handleLogout,
+    });
+  };
 
   return (
     <Button
@@ -36,7 +48,7 @@ export function SignOutButton({ onClose, sx, ...other }) {
       variant="soft"
       size="large"
       color="error"
-      onClick={handleLogout}
+      onClick={handleClick}
       sx={sx}
       {...other}
     >

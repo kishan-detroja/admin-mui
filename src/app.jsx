@@ -8,6 +8,7 @@ import { usePathname } from 'src/routes/hooks';
 import { store } from 'src/store';
 import { themeConfig, ThemeProvider } from 'src/theme';
 
+import { ConfirmDialog } from 'src/components/common';
 import { GlobalSnackbar } from 'src/components/snackbar';
 import { ProgressBar } from 'src/components/progress-bar';
 import { MotionLazy } from 'src/components/animate/motion-lazy';
@@ -32,6 +33,7 @@ export default function App({ children }) {
               <ProgressBar />
               <SettingsDrawer defaultSettings={defaultSettings} />
               <GlobalSnackbar />
+              <ConfirmDialog />
               {children}
             </MotionLazy>
           </ThemeProvider>
