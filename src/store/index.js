@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import uiReducer from './slices/uiSlice';
 import authReducer from './slices/authSlice';
-import usersReducer from './slices/usersSlice';
+import usersReducer from '../pages/users/slice/usersSlice';
 
 export const store = configureStore({
   reducer: {

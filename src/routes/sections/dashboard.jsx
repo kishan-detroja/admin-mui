@@ -13,7 +13,7 @@ import { usePathname } from '../hooks';
 // ----------------------------------------------------------------------
 
 const IndexPage = lazy(() => import('src/pages/dashboard/one'));
-const UsersPage = lazy(() => import('src/pages/users/UsersPage'));
+const UsersPage = lazy(() => import('src/pages/users/index'));
 
 // ----------------------------------------------------------------------
 

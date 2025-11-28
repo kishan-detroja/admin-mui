@@ -17,10 +17,9 @@ import {
   CircularProgress,
 } from '@mui/material';
 
-import { USER_ROLES, USER_STATUS } from 'src/utils/constants';
-
 import { showSnackbar } from 'src/store/slices/uiSlice';
-import { createUser, updateUser } from 'src/store/slices/usersSlice';
+import { USER_ROLES, USER_STATUS } from 'src/constants';
+import { createUser, updateUser } from 'src/pages/users/slice/usersSlice';
 
 const userSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),

@@ -52,25 +52,6 @@ export const STORAGE_KEYS = {
   SIDEBAR_STATE: 'visio_sidebar_state',
 };
 
-// API Endpoints (relative to base URL)
-export const API_ENDPOINTS = {
-  AUTH: {
-    LOGIN: '/auth/login',
-    REGISTER: '/auth/register',
-    LOGOUT: '/auth/logout',
-    REFRESH: '/auth/refresh',
-    ME: '/auth/me',
-  },
-  USERS: {
-    LIST: '/users',
-    DETAIL: (id) => `/users/${id}`,
-    CREATE: '/users',
-    UPDATE: (id) => `/users/${id}`,
-    DELETE: (id) => `/users/${id}`,
-    STATS: '/users/stats',
-  },
-};
-
 // HTTP Methods
 export const HTTP_METHODS = {
   GET: 'GET',

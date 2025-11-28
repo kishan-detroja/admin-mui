@@ -36,12 +36,12 @@ import {
   selectUsersLimit,
   selectUsersLoading,
   selectUsersSearchQuery,
-} from 'src/store/slices/usersSlice';
+} from 'src/pages/users/slice/usersSlice';
 
 import { Iconify } from 'src/components/iconify';
 
-import UserFormDialog from './UserFormDialog';
-import UserDetailDialog from './UserDetailDialog';
+import UserFormDialog from '../dialog/UserFormDialog';
+import UserDetailDialog from '../dialog/UserDetailDialog';
 
 export default function UsersListView() {
   const dispatch = useDispatch();
