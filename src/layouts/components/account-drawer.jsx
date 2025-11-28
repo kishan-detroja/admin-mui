@@ -33,6 +33,8 @@ export function AccountDrawer({ data = [], sx, ...other }) {
 
   const { user } = useMockedUser();
 
+  console.log('Log ==>user', user);
+
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
 
   const renderAvatar = () => (

@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { useBoolean } from 'minimal-shared/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -10,7 +11,6 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { paths } from 'src/routes/paths';
-import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
 import { useSnackbar } from 'src/hooks';
@@ -22,14 +22,15 @@ import { Form, Field } from 'src/components/hook-form';
 import { useAuthContext } from 'src/auth/hooks';
 import { getErrorMessage } from 'src/auth/utils';
 import { FormHead } from 'src/auth/components/form-head';
-import { signInWithPassword } from 'src/auth/context/jwt';
+import { setSession, signInWithPassword } from 'src/auth/context/jwt';
+
+import { setCredentials } from '../../slice/authSlice';
 
 // ----------------------------------------------------------------------
 
 export function SignInForm() {
-  const router = useRouter();
-
   const showPassword = useBoolean();
+  const dispatch = useDispatch();
 
   const { checkUserSession } = useAuthContext();
 
@@ -52,8 +53,18 @@ export function SignInForm() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await signInWithPassword({ email: data.email, password: data.password });
+      const resp = await signInWithPassword({ email: data.email, password: data.password });
+
+      const { success, data: userData = {}, error = 'Something went wrong' } = resp.data;
+
+      if (!success) {
+        showError(error);
+        return;
+      }
+      const { user } = userData;
+      dispatch(setCredentials({ user }));
       showSuccess('Successfully signed in!');
+      setSession(success);
       await checkUserSession?.();
 
       // router.refresh();
