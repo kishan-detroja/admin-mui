@@ -12,7 +12,7 @@ import { AuthGuard } from 'src/auth/guard';
 
 // ----------------------------------------------------------------------
 
-const IndexPage = lazy(() => import('src/pages/dashboard/one'));
+const IndexPage = lazy(() => import('src/pages/dashboard'));
 const UsersPage = lazy(() => import('src/pages/users/index'));
 
 // ----------------------------------------------------------------------
@@ -34,11 +34,21 @@ const dashboardLayout = () => (
 
 export const dashboardRoutes = [
   {
-    path: 'dashboard',
+    path: '/',
     element: CONFIG.auth.skip ? dashboardLayout() : <AuthGuard>{dashboardLayout()}</AuthGuard>,
     children: [
-      { element: <IndexPage />, index: true },
+      { element: <IndexPage />, path: 'dashboard', index: true },
       { path: 'users', element: <UsersPage /> },
     ],
   },
+
+  //EXAMPLE : ADMIN
+  // {
+  //   path: 'admin',
+  //   element: CONFIG.auth.skip ? dashboardLayout() : <AuthGuard>{dashboardLayout()}</AuthGuard>,
+  //   children: [
+  //     { element: <IndexPage />, index: true },
+  //     { path: 'users', element: <UsersPage /> },
+  //   ],
+  // },
 ];

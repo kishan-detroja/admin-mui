@@ -1,7 +1,4 @@
 import { useState, useEffect } from 'react';
-import { safeReturnUrl } from 'minimal-shared/utils';
-
-import { useSearchParams } from 'src/routes/hooks';
 
 import { CONFIG } from 'src/global-config';
 
@@ -16,8 +13,7 @@ export function GuestGuard({ children }) {
 
   const [isChecking, setIsChecking] = useState(true);
 
-  const searchParams = useSearchParams();
-  const redirectUrl = safeReturnUrl(searchParams.get('returnTo'), CONFIG.auth.redirectPath);
+  const redirectUrl = CONFIG.auth.redirectPath;
 
   const checkPermissions = async () => {
     if (loading) {
