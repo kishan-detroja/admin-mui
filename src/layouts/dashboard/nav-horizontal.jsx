@@ -3,9 +3,9 @@ import { varAlpha, mergeClasses } from 'minimal-shared/utils';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 
-import { NavSectionHorizontal } from 'src/components/nav-section';
+import { layoutClasses } from 'src/layouts/core';
 
-import { layoutClasses } from '../core';
+import { NavSectionHorizontal } from 'src/components/nav-section';
 
 // ----------------------------------------------------------------------
 

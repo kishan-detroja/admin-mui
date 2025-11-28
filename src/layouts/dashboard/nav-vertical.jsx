@@ -3,13 +3,13 @@ import { varAlpha, mergeClasses } from 'minimal-shared/utils';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 
+import { layoutClasses } from 'src/layouts/core';
+import { NavUpgrade } from 'src/layouts/components/nav-upgrade';
+import { NavToggleButton } from 'src/layouts/components/nav-toggle-button';
+
 import { Logo } from 'src/components/logo';
 import { Scrollbar } from 'src/components/scrollbar';
 import { NavSectionMini, NavSectionVertical } from 'src/components/nav-section';
-
-import { layoutClasses } from '../core';
-import { NavUpgrade } from '../components/nav-upgrade';
-import { NavToggleButton } from '../components/nav-toggle-button';
 
 // ----------------------------------------------------------------------
 

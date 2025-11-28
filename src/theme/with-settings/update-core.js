@@ -1,7 +1,8 @@
 import { setFont, hexToRgbChannel, createPaletteChannel } from 'minimal-shared/utils';
 
+import { createShadowColor } from 'src/theme/core/custom-shadows';
+
 import { primaryColorPresets } from './color-presets';
-import { createShadowColor } from '../core/custom-shadows';
 
 // ----------------------------------------------------------------------
 

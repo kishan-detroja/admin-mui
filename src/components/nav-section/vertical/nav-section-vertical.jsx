@@ -4,9 +4,10 @@ import { mergeClasses } from 'minimal-shared/utils';
 import Collapse from '@mui/material/Collapse';
 import { useTheme } from '@mui/material/styles';
 
+import { Nav, NavUl, NavLi, NavSubheader } from 'src/components/nav-section/components';
+import { navSectionClasses, navSectionCssVars } from 'src/components/nav-section/styles';
+
 import { NavList } from './nav-list';
-import { Nav, NavUl, NavLi, NavSubheader } from '../components';
-import { navSectionClasses, navSectionCssVars } from '../styles';
 
 // ----------------------------------------------------------------------
 

@@ -2,9 +2,10 @@ import { mergeClasses } from 'minimal-shared/utils';
 
 import { useTheme } from '@mui/material/styles';
 
+import { Nav, NavUl, NavLi } from 'src/components/nav-section/components';
+import { navSectionClasses, navSectionCssVars } from 'src/components/nav-section/styles';
+
 import { NavList } from './nav-list';
-import { Nav, NavUl, NavLi } from '../components';
-import { navSectionClasses, navSectionCssVars } from '../styles';
 
 // ----------------------------------------------------------------------
 

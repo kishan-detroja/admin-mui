@@ -1,7 +1,8 @@
 import { varAlpha, createPaletteChannel } from 'minimal-shared/utils';
 
+import { themeConfig } from 'src/theme/theme-config';
+
 import { opacity } from './opacity';
-import { themeConfig } from '../theme-config';
 
 // ----------------------------------------------------------------------
 

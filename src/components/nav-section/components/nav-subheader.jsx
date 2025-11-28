@@ -3,8 +3,8 @@ import { mergeClasses } from 'minimal-shared/utils';
 import { styled } from '@mui/material/styles';
 import ListSubheader from '@mui/material/ListSubheader';
 
-import { navSectionClasses } from '../styles';
-import { Iconify, iconifyClasses } from '../../iconify';
+import { Iconify, iconifyClasses } from 'src/components/iconify';
+import { navSectionClasses } from 'src/components/nav-section/styles';
 
 // ----------------------------------------------------------------------
 

@@ -4,9 +4,9 @@ import Tooltip from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 
-import { Iconify } from '../../iconify';
-import { createNavItem } from '../utils';
-import { navItemStyles, navSectionClasses } from '../styles';
+import { Iconify } from 'src/components/iconify';
+import { createNavItem } from 'src/components/nav-section/utils';
+import { navItemStyles, navSectionClasses } from 'src/components/nav-section/styles';
 
 // ----------------------------------------------------------------------
 

@@ -1,6 +1,6 @@
 import { paths } from 'src/routes/paths';
 
-import packageJson from '../package.json';
+import packageJson from 'src/../package.json';
 
 // ----------------------------------------------------------------------
 

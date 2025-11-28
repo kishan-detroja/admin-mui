@@ -6,6 +6,19 @@ import Alert from '@mui/material/Alert';
 import { useTheme } from '@mui/material/styles';
 import { iconButtonClasses } from '@mui/material/IconButton';
 
+import { _account } from 'src/layouts/nav-config-account';
+import { Searchbar } from 'src/layouts/components/searchbar';
+import { _workspaces } from 'src/layouts/nav-config-workspace';
+import { MenuButton } from 'src/layouts/components/menu-button';
+import { AccountDrawer } from 'src/layouts/components/account-drawer';
+import { SettingsButton } from 'src/layouts/components/settings-button';
+import { LanguagePopover } from 'src/layouts/components/language-popover';
+import { ContactsPopover } from 'src/layouts/components/contacts-popover';
+import { WorkspacesPopover } from 'src/layouts/components/workspaces-popover';
+import { navData as dashboardNavData } from 'src/layouts/nav-config-dashboard';
+import { NotificationsDrawer } from 'src/layouts/components/notifications-drawer';
+import { MainSection, layoutClasses, HeaderSection, LayoutSection } from 'src/layouts/core';
+
 import { Logo } from 'src/components/logo';
 import { useSettingsContext } from 'src/components/settings';
 
@@ -15,19 +28,7 @@ import { NavMobile } from './nav-mobile';
 import { VerticalDivider } from './content';
 import { NavVertical } from './nav-vertical';
 import { NavHorizontal } from './nav-horizontal';
-import { _account } from '../nav-config-account';
-import { Searchbar } from '../components/searchbar';
-import { _workspaces } from '../nav-config-workspace';
-import { MenuButton } from '../components/menu-button';
-import { AccountDrawer } from '../components/account-drawer';
-import { SettingsButton } from '../components/settings-button';
-import { LanguagePopover } from '../components/language-popover';
-import { ContactsPopover } from '../components/contacts-popover';
-import { WorkspacesPopover } from '../components/workspaces-popover';
-import { navData as dashboardNavData } from '../nav-config-dashboard';
 import { dashboardLayoutVars, dashboardNavColorVars } from './css-vars';
-import { NotificationsDrawer } from '../components/notifications-drawer';
-import { MainSection, layoutClasses, HeaderSection, LayoutSection } from '../core';
 
 // ----------------------------------------------------------------------
 

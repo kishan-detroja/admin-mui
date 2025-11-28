@@ -1,7 +1,7 @@
 import SvgIcon from '@mui/material/SvgIcon';
 import { chipClasses } from '@mui/material/Chip';
 
-import { colorKeys } from '../palette';
+import { colorKeys } from 'src/theme/core/palette';
 
 // ----------------------------------------------------------------------
 

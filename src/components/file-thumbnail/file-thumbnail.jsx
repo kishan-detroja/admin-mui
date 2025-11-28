@@ -2,7 +2,8 @@ import { mergeClasses } from 'minimal-shared/utils';
 
 import Tooltip from '@mui/material/Tooltip';
 
-import { Iconify } from '../iconify';
+import { Iconify } from 'src/components/iconify';
+
 import { fileThumbnailClasses } from './classes';
 import { getFileMeta, getFileIcon } from './utils';
 import { useFilePreview } from './use-file-preview';

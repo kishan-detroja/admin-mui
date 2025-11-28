@@ -3,8 +3,9 @@ import { useLocalStorage } from 'minimal-shared/hooks';
 import { useMemo, useState, useEffect, useCallback } from 'react';
 import { getStorage as getStorageValue } from 'minimal-shared/utils';
 
+import { SETTINGS_STORAGE_KEY } from 'src/components/settings/settings-config';
+
 import { SettingsContext } from './settings-context';
-import { SETTINGS_STORAGE_KEY } from '../settings-config';
 
 // ----------------------------------------------------------------------
 

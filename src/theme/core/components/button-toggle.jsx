@@ -2,7 +2,7 @@ import { varAlpha } from 'minimal-shared/utils';
 
 import { toggleButtonClasses } from '@mui/material/ToggleButton';
 
-import { colorKeys } from '../palette';
+import { colorKeys } from 'src/theme/core/palette';
 
 // ----------------------------------------------------------------------
 

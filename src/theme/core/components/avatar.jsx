@@ -2,7 +2,7 @@ import { parseCssVar } from 'minimal-shared/utils';
 
 import Box from '@mui/material/Box';
 
-import { colorKeys } from '../palette';
+import { colorKeys } from 'src/theme/core/palette';
 
 // ----------------------------------------------------------------------
 

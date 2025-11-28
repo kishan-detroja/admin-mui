@@ -1,14 +1,14 @@
 import { Outlet } from 'react-router';
 import { lazy, Suspense } from 'react';
 
+import { usePathname } from 'src/routes/hooks';
+
 import { CONFIG } from 'src/global-config';
 import { DashboardLayout } from 'src/layouts/dashboard';
 
 import { LoadingScreen } from 'src/components/loading-screen';
 
 import { AuthGuard } from 'src/auth/guard';
-
-import { usePathname } from '../hooks';
 
 // ----------------------------------------------------------------------
 

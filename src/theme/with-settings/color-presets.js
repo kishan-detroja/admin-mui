@@ -1,4 +1,4 @@
-import { primary, secondary } from '../core/palette';
+import { primary, secondary } from 'src/theme/core/palette';
 
 // ----------------------------------------------------------------------
 

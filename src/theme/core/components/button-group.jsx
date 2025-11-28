@@ -2,7 +2,7 @@ import { varAlpha } from 'minimal-shared/utils';
 
 import { buttonGroupClasses } from '@mui/material/ButtonGroup';
 
-import { colorKeys } from '../palette';
+import { colorKeys } from 'src/theme/core/palette';
 
 // ----------------------------------------------------------------------
 

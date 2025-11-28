@@ -13,16 +13,17 @@ import { useColorScheme } from '@mui/material/styles';
 import { themeConfig } from 'src/theme/theme-config';
 import { primaryColorPresets } from 'src/theme/with-settings';
 
-import { Label } from '../../label';
+import { Label } from 'src/components/label';
+import { Iconify } from 'src/components/iconify';
+import { Scrollbar } from 'src/components/scrollbar';
+import { useSettingsContext } from 'src/components/settings/context/use-settings-context';
+
 import { settingIcons } from './icons';
-import { Iconify } from '../../iconify';
 import { BaseOption } from './base-option';
-import { Scrollbar } from '../../scrollbar';
 import { SmallBlock, LargeBlock } from './styles';
 import { PresetsOptions } from './presets-options';
 import { FullScreenButton } from './fullscreen-button';
 import { FontSizeOptions, FontFamilyOptions } from './font-options';
-import { useSettingsContext } from '../context/use-settings-context';
 import { NavColorOptions, NavLayoutOptions } from './nav-layout-option';
 
 // ----------------------------------------------------------------------

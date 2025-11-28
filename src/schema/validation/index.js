@@ -1,2 +1,2 @@
-export * from '../validation/user.schema';
-export * from '../validation/singIn.schema';
+export * from 'src/schema/validation/user.schema';
+export * from 'src/schema/validation/singIn.schema';

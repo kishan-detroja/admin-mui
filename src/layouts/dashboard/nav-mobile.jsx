@@ -6,12 +6,12 @@ import Drawer from '@mui/material/Drawer';
 
 import { usePathname } from 'src/routes/hooks';
 
+import { layoutClasses } from 'src/layouts/core';
+import { NavUpgrade } from 'src/layouts/components/nav-upgrade';
+
 import { Logo } from 'src/components/logo';
 import { Scrollbar } from 'src/components/scrollbar';
 import { NavSectionVertical } from 'src/components/nav-section';
-
-import { layoutClasses } from '../core';
-import { NavUpgrade } from '../components/nav-upgrade';
 
 // ----------------------------------------------------------------------
 

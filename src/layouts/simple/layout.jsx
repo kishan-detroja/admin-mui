@@ -7,11 +7,12 @@ import Alert from '@mui/material/Alert';
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
+import { SettingsButton } from 'src/layouts/components/settings-button';
+import { MainSection, LayoutSection, HeaderSection } from 'src/layouts/core';
+
 import { Logo } from 'src/components/logo';
 
 import { SimpleCompactContent } from './content';
-import { SettingsButton } from '../components/settings-button';
-import { MainSection, LayoutSection, HeaderSection } from '../core';
 
 // ----------------------------------------------------------------------
 

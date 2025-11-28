@@ -2,7 +2,7 @@ import { varAlpha } from 'minimal-shared/utils';
 
 import { linearProgressClasses } from '@mui/material/LinearProgress';
 
-import { colorKeys } from '../palette';
+import { colorKeys } from 'src/theme/core/palette';
 
 // ----------------------------------------------------------------------
 

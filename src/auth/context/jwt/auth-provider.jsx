@@ -4,9 +4,10 @@ import { useMemo, useEffect, useCallback } from 'react';
 import axiosInstance from 'src/services/axios';
 import { AUTH_ENDPOINTS } from 'src/services/endpoints';
 
+import { AuthContext } from 'src/auth/context/auth-context';
+
 import { setSession } from './utils';
 import { JWT_STORAGE_KEY } from './constant';
-import { AuthContext } from '../auth-context';
 
 // ----------------------------------------------------------------------
 

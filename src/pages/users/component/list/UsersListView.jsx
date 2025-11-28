@@ -24,6 +24,8 @@ import {
 import { useDebounce } from 'src/hooks';
 import { formatDate, getInitials } from 'src/utils';
 import { showSnackbar } from 'src/store/slices/uiSlice';
+import UserFormDialog from 'src/pages/users/component/dialog/UserFormDialog';
+import UserDetailDialog from 'src/pages/users/component/dialog/UserDetailDialog';
 import {
   setPage,
   setLimit,
@@ -39,9 +41,6 @@ import {
 } from 'src/pages/users/slice/usersSlice';
 
 import { Iconify } from 'src/components/iconify';
-
-import UserFormDialog from '../dialog/UserFormDialog';
-import UserDetailDialog from '../dialog/UserDetailDialog';
 
 export default function UsersListView() {
   const dispatch = useDispatch();

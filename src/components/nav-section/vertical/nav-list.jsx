@@ -4,9 +4,10 @@ import { isActiveLink, isExternalLink } from 'minimal-shared/utils';
 
 import { usePathname } from 'src/routes/hooks';
 
+import { navSectionClasses } from 'src/components/nav-section/styles';
+import { NavUl, NavLi, NavCollapse } from 'src/components/nav-section/components';
+
 import { NavItem } from './nav-item';
-import { navSectionClasses } from '../styles';
-import { NavUl, NavLi, NavCollapse } from '../components';
 
 // ----------------------------------------------------------------------
 

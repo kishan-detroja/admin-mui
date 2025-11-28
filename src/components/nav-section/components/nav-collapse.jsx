@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles';
 import Collapse from '@mui/material/Collapse';
 
-import { navSectionClasses } from '../styles';
+import { navSectionClasses } from 'src/components/nav-section/styles';
 
 // ----------------------------------------------------------------------
 
