@@ -24,6 +24,7 @@ export {
   getInitials,
   formatNumber,
   truncateText,
+  toQueryParams,
   formatCurrency,
   getRandomColor,
 } from './helpers';

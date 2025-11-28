@@ -1,37 +1,25 @@
-import axiosInstance from 'src/services/axios';
+import apiService from 'src/services/apiService';
 import { USERS_ENDPOINTS } from 'src/services/endpoints';
 
 export const usersApi = {
-  getUsers: async (params) => {
-    const response = await axiosInstance.get(USERS_ENDPOINTS.LIST, { params });
-    return response.data;
-  },
+  // Get all users with optional filters
+  getUsers: async (params) => apiService.get(USERS_ENDPOINTS.LIST, params),
 
-  getUser: async (id) => {
-    const response = await axiosInstance.get(USERS_ENDPOINTS.DETAIL(id));
-    return response.data;
-  },
+  // Get single user by ID
+  getUser: async (id) => apiService.get(USERS_ENDPOINTS.DETAIL(id)),
 
-  createUser: async (userData) => {
-    const response = await axiosInstance.post(USERS_ENDPOINTS.CREATE, userData);
-    return response.data;
-  },
+  // Create new user
+  createUser: async (userData) => apiService.post(USERS_ENDPOINTS.CREATE, userData),
 
-  updateUser: async (id, userData) => {
-    const response = await axiosInstance.put(USERS_ENDPOINTS.UPDATE(id), userData);
-    return response.data;
-  },
+  // Update existing user
+  updateUser: async (id, userData) => apiService.put(USERS_ENDPOINTS.UPDATE(id), userData),
 
-  deleteUser: async (id) => {
-    const response = await axiosInstance.delete(USERS_ENDPOINTS.DELETE(id));
-    return response.data;
-  },
+  // Delete user
+  deleteUser: async (id) => apiService.delete(USERS_ENDPOINTS.DELETE(id)),
 
-  bulkDeleteUsers: async (ids) => {
-    const response = await axiosInstance.post(USERS_ENDPOINTS.BULK_DELETE, { ids });
-    return response.data;
-  },
+  // Bulk delete users
+  bulkDeleteUsers: async (ids) => apiService.post(USERS_ENDPOINTS.BULK_DELETE, { ids }),
 
   // Get user statistics
-  getUserStats: () => axiosInstance.get('/users/stats'),
+  getUserStats: async (params) => apiService.get('/users/stats', params),
 };

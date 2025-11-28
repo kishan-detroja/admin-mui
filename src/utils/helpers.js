@@ -6,24 +6,24 @@
  */
 export const formatDate = (date, format = 'short') => {
   if (!date) return '';
-  
+
   const d = new Date(date);
-  
+
   if (Number.isNaN(d.getTime())) return '';
-  
+
   const options = {
     short: { year: 'numeric', month: 'short', day: 'numeric' },
     long: { year: 'numeric', month: 'long', day: 'numeric' },
     time: { hour: '2-digit', minute: '2-digit' },
-    datetime: { 
-      year: 'numeric', 
-      month: 'short', 
+    datetime: {
+      year: 'numeric',
+      month: 'short',
       day: 'numeric',
-      hour: '2-digit', 
-      minute: '2-digit' 
+      hour: '2-digit',
+      minute: '2-digit',
     },
   };
-  
+
   return d.toLocaleDateString('en-US', options[format] || options.short);
 };
 
@@ -35,7 +35,7 @@ export const formatDate = (date, format = 'short') => {
  */
 export const formatCurrency = (amount, currency = 'USD') => {
   if (amount === null || amount === undefined) return '';
-  
+
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency,
@@ -71,10 +71,10 @@ export const truncateText = (text, maxLength = 50) => {
  */
 export const getInitials = (name) => {
   if (!name) return '';
-  
+
   const parts = name.trim().split(' ');
   if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
-  
+
   return `${parts[0].charAt(0)}${parts[parts.length - 1].charAt(0)}`.toUpperCase();
 };
 
@@ -84,8 +84,14 @@ export const getInitials = (name) => {
  */
 export const getRandomColor = () => {
   const colors = [
-    '#1976d2', '#dc004e', '#9c27b0', '#f57c00',
-    '#388e3c', '#d32f2f', '#0288d1', '#7b1fa2',
+    '#1976d2',
+    '#dc004e',
+    '#9c27b0',
+    '#f57c00',
+    '#388e3c',
+    '#d32f2f',
+    '#0288d1',
+    '#7b1fa2',
   ];
   return colors[Math.floor(Math.random() * colors.length)];
 };
@@ -136,3 +142,54 @@ export const isEmpty = (obj) => {
  * @returns {Promise} Promise that resolves after delay
  */
 export const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/**
+ * Convert object to query parameters string
+ * @param {Object} params - Object to convert to query params
+ * @param {Object} options - Options for conversion
+ * @param {boolean} options.skipNull - Skip null/undefined values (default: true)
+ * @param {boolean} options.arrayFormat - Format for arrays: 'bracket' (key[]=val) or 'repeat' (key=val&key=val) (default: 'bracket')
+ * @returns {string} Query parameters string (without leading '?')
+ * @example
+ * toQueryParams({ name: 'John', age: 30, tags: ['a', 'b'] })
+ * // Returns: "name=John&age=30&tags[]=a&tags[]=b"
+ */
+export const toQueryParams = (params, options = {}) => {
+  const { skipNull = true, arrayFormat = 'bracket' } = options;
+
+  if (!params || typeof params !== 'object') return '';
+
+  const queryParts = [];
+
+  Object.entries(params).forEach(([key, value]) => {
+    // Skip null/undefined if option is enabled
+    if (skipNull && (value === null || value === undefined)) {
+      return;
+    }
+
+    // Handle arrays
+    if (Array.isArray(value)) {
+      if (value.length === 0 && skipNull) return;
+
+      value.forEach((item) => {
+        if (skipNull && (item === null || item === undefined)) return;
+
+        const encodedKey =
+          arrayFormat === 'bracket' ? `${encodeURIComponent(key)}[]` : encodeURIComponent(key);
+        queryParts.push(`${encodedKey}=${encodeURIComponent(item)}`);
+      });
+      return;
+    }
+
+    // Handle objects (convert to JSON string)
+    if (typeof value === 'object') {
+      queryParts.push(`${encodeURIComponent(key)}=${encodeURIComponent(JSON.stringify(value))}`);
+      return;
+    }
+
+    // Handle primitive values
+    queryParts.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+  });
+
+  return queryParts.join('&');
+};

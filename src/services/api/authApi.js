@@ -1,39 +1,25 @@
-import axiosInstance from 'src/services/axios';
+import apiService from 'src/services/apiService';
 import { AUTH_ENDPOINTS } from 'src/services/endpoints';
 
 export const authApi = {
-  login: async (credentials) => {
-    const response = await axiosInstance.post(AUTH_ENDPOINTS.LOGIN, credentials);
-    return response.data;
-  },
+  // User login
+  login: async (credentials) => apiService.post(AUTH_ENDPOINTS.LOGIN, credentials),
 
-  register: async (userData) => {
-    const response = await axiosInstance.post(AUTH_ENDPOINTS.REGISTER, userData);
-    return response.data;
-  },
+  // User registration
+  register: async (userData) => apiService.post(AUTH_ENDPOINTS.REGISTER, userData),
 
-  getMe: async () => {
-    const response = await axiosInstance.get(AUTH_ENDPOINTS.ME);
-    return response.data;
-  },
+  // Get current user info
+  getMe: async () => apiService.get(AUTH_ENDPOINTS.ME),
 
-  logout: async () => {
-    const response = await axiosInstance.post(AUTH_ENDPOINTS.LOGOUT);
-    return response.data;
-  },
+  // User logout
+  logout: async () => apiService.post(AUTH_ENDPOINTS.LOGOUT),
 
-  forgotPassword: async (email) => {
-    const response = await axiosInstance.post(AUTH_ENDPOINTS.FORGOT_PASSWORD, { email });
-    return response.data;
-  },
+  // Request password reset
+  forgotPassword: async (email) => apiService.post(AUTH_ENDPOINTS.FORGOT_PASSWORD, { email }),
 
-  resetPassword: async (data) => {
-    const response = await axiosInstance.post(AUTH_ENDPOINTS.RESET_PASSWORD, data);
-    return response.data;
-  },
+  // Reset password with token
+  resetPassword: async (data) => apiService.post(AUTH_ENDPOINTS.RESET_PASSWORD, data),
 
-  verifyEmail: async (token) => {
-    const response = await axiosInstance.post(AUTH_ENDPOINTS.VERIFY_EMAIL, { token });
-    return response.data;
-  },
+  // Verify email with token
+  verifyEmail: async (token) => apiService.post(AUTH_ENDPOINTS.VERIFY_EMAIL, { token }),
 };
