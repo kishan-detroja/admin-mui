@@ -5,9 +5,10 @@ import { usersApi } from 'src/services/api/usersApi';
 // Async thunks
 export const fetchUsers = createAsyncThunk(
   'users/fetchUsers',
-  async ({ page = 1, limit = 10, search = '' }, { rejectWithValue }) => {
+  async (_, { getState, rejectWithValue }) => {
     try {
-      const response = await usersApi.getUsers({ page, limit, search });
+      const { filters } = getState().users;
+      const response = await usersApi.getUsers(filters);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);
@@ -66,29 +67,26 @@ export const deleteUser = createAsyncThunk(
 const initialState = {
   users: {
     list: [],
+    total: 0,
     pagination: {},
   },
+  filters: {
+    page: 1,
+    limit: 10,
+    search: '',
+    sort: {},
+  },
   currentUser: null,
-  total: 0,
-  page: 1,
-  limit: 10,
   isLoading: false,
   error: null,
-  searchQuery: '',
 };
 
 const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    setSearchQuery: (state, action) => {
-      state.searchQuery = action.payload;
-    },
-    setPage: (state, action) => {
-      state.page = action.payload;
-    },
-    setLimit: (state, action) => {
-      state.limit = action.payload;
+    setFilters: (state, action) => {
+      state.filters = { ...state.filters, ...action.payload };
     },
     clearCurrentUser: (state) => {
       state.currentUser = null;
@@ -105,10 +103,10 @@ const usersSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchUsers.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.isLoading = false;
-        state.users.list = action.payload.list || [];
-        state.users.pagination = action.payload.pagination || {};
+        state.users.list = action.payload?.list || [];
+        state.users.total = action.payload?.pagination?.totalCount || 0;
+        state.users.pagination = action.payload?.pagination || {};
       })
       .addCase(fetchUsers.rejected, (state, action) => {
         state.isLoading = false;
@@ -134,8 +132,8 @@ const usersSlice = createSlice({
       })
       .addCase(createUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.users.unshift(action.payload);
-        state.total += 1;
+        state.users.list.unshift(action.payload);
+        state.users.total += 1;
       })
       .addCase(createUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -148,9 +146,9 @@ const usersSlice = createSlice({
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        const index = state.users.findIndex((user) => user.id === action.payload.id);
+        const index = state.users.list.findIndex((user) => user.id === action.payload.id);
         if (index !== -1) {
-          state.users[index] = action.payload;
+          state.users.list[index] = action.payload;
         }
         if (state.currentUser?.id === action.payload.id) {
           state.currentUser = action.payload;
@@ -167,8 +165,8 @@ const usersSlice = createSlice({
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.users = state.users.filter((user) => user.id !== action.payload);
-        state.total -= 1;
+        state.users.list = state.users.list.filter((user) => user.id !== action.payload);
+        state.users.total -= 1;
       })
       .addCase(deleteUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -177,17 +175,13 @@ const usersSlice = createSlice({
   },
 });
 
-export const { setSearchQuery, setPage, setLimit, clearCurrentUser, clearError } =
-  usersSlice.actions;
+export const { setFilters, clearCurrentUser, clearError } = usersSlice.actions;
 
 export default usersSlice.reducer;
 
 // Selectors
 export const selectUsers = (state) => state.users.users;
+export const selectUsersFilters = (state) => state.users.filters;
 export const selectCurrentUser = (state) => state.users.currentUser;
-export const selectUsersTotal = (state) => state.users.total;
-export const selectUsersPage = (state) => state.users.page;
-export const selectUsersLimit = (state) => state.users.limit;
 export const selectUsersLoading = (state) => state.users.isLoading;
 export const selectUsersError = (state) => state.users.error;
-export const selectUsersSearchQuery = (state) => state.users.searchQuery;
