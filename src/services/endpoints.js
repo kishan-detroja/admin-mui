@@ -12,7 +12,7 @@ export const AUTH_ENDPOINTS = {
 
 // User endpoints
 export const USERS_ENDPOINTS = {
-  LIST: '/users',
+  LIST: '/user/list',
   DETAIL: (id) => `/users/${id}`,
   CREATE: '/users',
   UPDATE: (id) => `/users/${id}`,

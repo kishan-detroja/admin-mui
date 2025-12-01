@@ -64,7 +64,10 @@ export const deleteUser = createAsyncThunk(
 );
 
 const initialState = {
-  users: [],
+  users: {
+    list: [],
+    pagination: {},
+  },
   currentUser: null,
   total: 0,
   page: 1,
@@ -102,10 +105,10 @@ const usersSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchUsers.fulfilled, (state, action) => {
+        console.log(action.payload);
         state.isLoading = false;
-        state.users = action.payload.users || action.payload.data || [];
-        state.total = action.payload.total || 0;
-        state.page = action.payload.page || 1;
+        state.users.list = action.payload.list || [];
+        state.users.pagination = action.payload.pagination || {};
       })
       .addCase(fetchUsers.rejected, (state, action) => {
         state.isLoading = false;

@@ -1,31 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect, useCallback } from 'react';
 
-import {
-  Box,
-  Card,
-  Chip,
-  Table,
-  Stack,
-  Avatar,
-  Button,
-  Tooltip,
-  TableRow,
-  TableBody,
-  TableCell,
-  TableHead,
-  TextField,
-  IconButton,
-  TableContainer,
-  InputAdornment,
-  TablePagination,
-} from '@mui/material';
+import { Box, Card, Chip, Stack, Avatar, Button, TextField, InputAdornment } from '@mui/material';
 
 import { useDebounce } from 'src/hooks';
 import { formatDate, getInitials } from 'src/utils';
 import { showSnackbar } from 'src/store/slices/uiSlice';
 import UserFormDialog from 'src/pages/users/component/dialog/UserFormDialog';
-import UserDetailDialog from 'src/pages/users/component/dialog/UserDetailDialog';
 import {
   setPage,
   setLimit,
@@ -41,6 +22,11 @@ import {
 } from 'src/pages/users/slice/usersSlice';
 
 import { Iconify } from 'src/components/iconify';
+import { CustomGridActionsCellItem } from 'src/components/custom-data-grid';
+
+import { DataGridCustom } from 'src/sections/data-grid-view/data-grid-custom';
+
+import UserDetailDialog from '../dialog/UserDetailDialog';
 
 export default function UsersListView() {
   const dispatch = useDispatch();
@@ -65,21 +51,6 @@ export default function UsersListView() {
   useEffect(() => {
     dispatch(fetchUsers({ page, limit, search: searchQuery }));
   }, [dispatch, page, limit, searchQuery]);
-
-  const handleChangePage = useCallback(
-    (event, newPage) => {
-      dispatch(setPage(newPage + 1));
-    },
-    [dispatch]
-  );
-
-  const handleChangeRowsPerPage = useCallback(
-    (event) => {
-      dispatch(setLimit(parseInt(event.target.value, 10)));
-      dispatch(setPage(1));
-    },
-    [dispatch]
-  );
 
   const handleEdit = useCallback((user) => {
     setSelectedUser(user);
@@ -130,6 +101,85 @@ export default function UsersListView() {
     return colors[status] || 'default';
   };
 
+  const columns = [
+    {
+      field: 'name',
+      headerName: 'User',
+      flex: 1,
+      minWidth: 200,
+      renderCell: (params) => (
+        <Stack direction="row" alignItems="center" spacing={2}>
+          <Avatar>{getInitials(params.row.name || params.row.email)}</Avatar>
+          <Box>
+            <Box sx={{ fontWeight: 600 }}>{params.row.name}</Box>
+          </Box>
+        </Stack>
+      ),
+    },
+    {
+      field: 'email',
+      headerName: 'Email',
+      flex: 1,
+      minWidth: 200,
+    },
+    {
+      field: 'role',
+      headerName: 'Role',
+      width: 150,
+      renderCell: (params) => <Chip label={params.row.role || 'user'} size="small" />,
+    },
+    {
+      field: 'status',
+      headerName: 'Status',
+      width: 150,
+      renderCell: (params) => (
+        <Chip
+          label={params.row.status || 'active'}
+          size="small"
+          color={getUserStatusColor(params.row.status)}
+        />
+      ),
+    },
+    {
+      field: 'createdAt',
+      headerName: 'Created At',
+      width: 180,
+      renderCell: (params) => formatDate(params.row.createdAt),
+    },
+    {
+      type: 'actions',
+      field: 'actions',
+      headerName: 'Actions',
+      align: 'right',
+      headerAlign: 'right',
+      width: 120,
+      sortable: false,
+      filterable: false,
+      disableColumnMenu: true,
+      getActions: (params) => [
+        <CustomGridActionsCellItem
+          showInMenu
+          label="View"
+          icon={<Iconify icon="solar:eye-bold" />}
+          onClick={() => handleView(params.row)}
+        />,
+        <CustomGridActionsCellItem
+          showInMenu
+          label="Edit"
+          icon={<Iconify icon="solar:pen-bold" />}
+          onClick={() => handleEdit(params.row)}
+        />,
+        <CustomGridActionsCellItem
+          showInMenu
+          label="Delete"
+          icon={<Iconify icon="solar:trash-bin-trash-bold" />}
+          onClick={() => handleDelete(params.row.id)}
+          style={{ color: 'var(--palette-error-main)' }}
+        />,
+      ],
+    },
+  ];
+
   return (
     <Box>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={3}>
@@ -155,87 +205,20 @@ export default function UsersListView() {
         </Button>
       </Stack>
 
-      <Card>
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>User</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Role</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell>Created At</TableCell>
-                <TableCell align="right">Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {loading && users.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={6} align="center">
-                    Loading...
-                  </TableCell>
-                </TableRow>
-              ) : users.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={6} align="center">
-                    No users found
-                  </TableCell>
-                </TableRow>
-              ) : (
-                users.map((user) => (
-                  <TableRow key={user.id} hover>
-                    <TableCell>
-                      <Stack direction="row" alignItems="center" spacing={2}>
-                        <Avatar>{getInitials(user.name || user.email)}</Avatar>
-                        <Box>
-                          <Box sx={{ fontWeight: 600 }}>{user.name}</Box>
-                        </Box>
-                      </Stack>
-                    </TableCell>
-                    <TableCell>{user.email}</TableCell>
-                    <TableCell>
-                      <Chip label={user.role || 'user'} size="small" />
-                    </TableCell>
-                    <TableCell>
-                      <Chip
-                        label={user.status || 'active'}
-                        size="small"
-                        color={getUserStatusColor(user.status)}
-                      />
-                    </TableCell>
-                    <TableCell>{formatDate(user.createdAt)}</TableCell>
-                    <TableCell align="right">
-                      <Tooltip title="View">
-                        <IconButton onClick={() => handleView(user)}>
-                          <Iconify icon="eva:eye-fill" />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title="Edit">
-                        <IconButton onClick={() => handleEdit(user)}>
-                          <Iconify icon="eva:edit-fill" />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title="Delete">
-                        <IconButton onClick={() => handleDelete(user.id)} color="error">
-                          <Iconify icon="eva:trash-2-fill" />
-                        </IconButton>
-                      </Tooltip>
-                    </TableCell>
-                  </TableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-
-        <TablePagination
-          component="div"
-          count={total}
-          page={page - 1}
-          onPageChange={handleChangePage}
-          rowsPerPage={limit}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          rowsPerPageOptions={[5, 10, 25, 50]}
+      <Card sx={{ height: 600 }}>
+        <DataGridCustom
+          columns={columns}
+          rows={users?.list || []}
+          loading={loading}
+          rowCount={total}
+          paginationModel={{
+            page: page - 1,
+            pageSize: limit,
+          }}
+          onPaginationModelChange={(model) => {
+            dispatch(setPage(model.page + 1));
+            dispatch(setLimit(model.pageSize));
+          }}
         />
       </Card>
 
